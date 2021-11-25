@@ -29,9 +29,9 @@
   * provide、inject
 
 * 新内置组件
- * `<Fragment>`
- * `<Teleport>`
- * `<Suspense>`
+  * `<Fragment>`
+  * `<Teleport>`
+  * `<Suspense>`
 
 其他改变：
 
