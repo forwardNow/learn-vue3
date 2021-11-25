@@ -4,8 +4,7 @@
 
 发布：
 
-* 2020年9月18日，vue.js 发布 3.0 版本，代号 One Piece（海贼王）
-* github vue-next: [https://github.com/vuejs/vue-next](https://github.com/vuejs/vue-next)
+* 2020年9月18日，vue.js 发布 3.0 版本（[vue-next](https://github.com/vuejs/vue-next)），代号 One Piece（海贼王）
 
 性能提升：（快、好、省）
 
@@ -18,7 +17,9 @@
 * 响应式： 使用 `Proxy` 替代 `Object.defineProperty`
 * 重写 VDOM，Tree-Shaking
 
-更好的支持 TS
+更好的支持 TS：
+
+* 官方支持而非通过 loader 
 
 新的特性：
 
