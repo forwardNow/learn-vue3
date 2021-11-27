@@ -39,3 +39,23 @@
 * 新的生命周期函数
 * data 选项应始终被声明为一个函数： data 的值只能为函数了
 * 移除 keyCode （v-on 修饰符） : `@key-up.enter`， `@key-up.13`，后者不可用了
+
+## 2. 创建 vue3 工程
+
+### 2.1. 使用 vue-cli 4.5.0+ 创建
+
+```shell
+# 安装/升级 到 4.5.0 以上
+npm i -g @vue/cli
+
+# + @vue/cli@4.5.15
+
+# 创建项目（使用管理员权限打开 CMD），选择 vue3
+vue create vue3-by-cli
+
+# 启动
+cd vue3-by-cli
+npm run serve
+```
+
+### 2.2. 使用 vite 创建
