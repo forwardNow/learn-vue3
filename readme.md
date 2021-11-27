@@ -59,3 +59,40 @@ npm run serve
 ```
 
 ### 2.2. 使用 vite 创建
+
+vite： 
+
+* 官网：[https://vitejs.cn/](https://vitejs.cn/)
+* 新一代前端构建工具（相对 webpack 来说），尤雨溪团队开发的
+
+优势：
+
+* 开发环境中，无需打包操作，可快速冷启动。（也就是说省掉了 bundle 的过程）
+* 轻量快速的热重载（HMR，hot module replacement）
+* 按需编译，无需编译所有模块
+* 传统编译 从入口开始打包所有依赖，vite 用哪个模块编译哪个模块
+
+创建工程：
+
+```shell
+npm init @vitejs/app
+
+# √ Project name: ... vue3-by-vite
+# √ Select a framework: » vue
+# √ Select a variant: » vue
+
+# Done. Now run:   
+
+#  cd vue3-by-vite
+#  npm install
+#  npm run dev
+
+cd vue3-by-vite
+npm i
+npm run dev
+```
+
+总结：
+
+* vite 确实比 webpack 快
+* 但没有大规模应用，还有许多坑要踩
