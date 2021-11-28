@@ -95,4 +95,53 @@ npm run dev
 总结：
 
 * vite 确实比 webpack 快
-* 但没有大规模应用，还有许多坑要踩
+* 但没有大规模应用，还有许多坑要踩。（也就是说 现阶段还是用 webpack）
+
+## 3. vue3 工程结构分析
+
+### 3.1. main.js
+
+#### 3.1.1. vue3
+
+```javascript
+import { createApp } from 'vue'
+import App from './App.vue'
+
+createApp(App).mount('#app')
+```
+
+createApp 为工厂函数，用于创建根实例（app）
+
+比 vue2 的 vm 更轻量（没有那么多属性和方法）
+
+#### 3.1.2. vue2
+
+```javascript
+const vm = new Vue({
+  render: h ==> h(App)
+});
+
+vm.$mount('#app');
+```
+
+### 3.2. App.vue
+
+```html
+<template>
+  <img alt="Vue logo" src="./assets/logo.png">
+  <HelloWorld msg="Welcome to Your Vue.js App"/>
+</template>
+
+<script>
+import HelloWorld from './components/HelloWorld.vue'
+
+export default {
+  name: 'App',
+  components: {
+    HelloWorld
+  }
+}
+</script>
+```
+
+vue3 中的模板（`<template>`）中可以有多个根标签
