@@ -99,6 +99,11 @@ npm run dev
 
 ## 3. vue3 工程结构分析
 
+分析入口文件：
+
+* main.js
+* App.vue
+
 ### 3.1. main.js
 
 #### 3.1.1. vue3
