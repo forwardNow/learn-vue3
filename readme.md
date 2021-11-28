@@ -153,3 +153,96 @@ export default {
 
 vue3 中的模板（`<template>`）中可以有多个根标签
 
+## 3. vue devtools
+
+通过 Chrome 网上应用店安装：
+
+![安装示意图](assets/images/01-vue-devtools.png)
+
+## 4. 常用 Composition API
+
+* 组合式 API
+* 选项式 API，vue2 中 `data`、`methods`、`computed` 等 就是选项式 API
+
+### 4.1. 初识 setup
+
+定义：
+
+* vue3 中的一个新的配置项，值为 **函数**
+* `setup` 是所有 Composition API 的“舞台”，也就是说组合式 API 要写在 `setup` 中
+
+返回值：
+
+* 对象：对象的属性、方法都可以直接在模板中使用。（类比 vue2 中的 `data` 属性）
+* 函数：渲染函数，可直接自定义渲染内容
+
+注意点：
+
+* 选项式API（`data`/`methods`/`computed`...）中可以直接访问 `setup` 返回的属性和方法
+* 属性、方法如有重名，`setup` 的优先级更高
+* `setup` 不能访问选项式 API
+* `setup` 不能是 async 函数
+
+示例：
+
+```html
+<template>
+  <h1>个人信息：</h1>
+  <div>姓名： {{ name }}</div>
+  <div>年龄： {{ age }}</div>
+  <div>性别： {{ gender }}</div>
+  <button @click="sayHelloByCompositionAPI">vue3 的写法</button>
+  <button @click="sayHelloByOptionAPI">vue2 的写法</button>
+</template>
+<script>
+export default {
+  setup() {
+    // data （非响应式）
+    const name = 'zhangsan';
+    const age = 18;
+
+    // method
+    const sayHelloByCompositionAPI = () => {
+      console.log('组合式 API：', name, age);
+    };
+
+    return {
+      name,
+      age,
+      sayHelloByCompositionAPI,
+    };
+  },
+
+  // 不建议使用这种方式
+  data() {
+    return {
+      gender: '男'
+    };
+  },
+  methods: {
+    sayHelloByOptionAPI() {
+      // 可以读取 setup 中返回的对象的属性和方法
+      console.log('选项式 API', this.name, this.age, this.gender);
+    }
+  },
+}
+</script>
+```
+
+### 4.2. ref 函数
+
+### 4.3. reactive 函数
+
+### 4.4. vue3 中响应式的原理
+
+### 4.5. setup 注意点
+
+### 4.6. reactive VS ref
+
+### 4.7. 计算属性 和 watch
+
+### 4.8. 生命周期
+
+### 4.9. 自定义 hook 函数
+
+### 4.10. toRefs
