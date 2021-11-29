@@ -305,6 +305,64 @@ export default {
 
 ### 4.2. ref 函数
 
+作用：
+
+* 定义一个响应式的数据
+* 返回一个`RefImpl`（引用实现）的实例，简称返回一个引用对象
+
+使用：
+
+* 定义： `const refName = ref(initValue)`
+* 在 `<template>` 中使用： `{{ refName }}`
+* 在 `<script>` 中使用： `refName.value`
+
+initValue 为基本类型数据：
+
+* 响应式的实现 靠 `Object.defineProperty` 定义的 `set`/`get` 完成数据劫持
+* ![assets/images/02-RefImpl.png](assets/images/02-RefImpl.png)
+
+initValue 为引用类型数据：
+
+* 响应式的实现 靠 内部的 `reactive` 函数
+
+示例：
+
+```html
+<template>
+  <!-- 在模板上使用，不需要写 “.value” -->
+  <div>姓名： {{ name }}</div>
+  <div>年龄： {{ person.age }}</div>
+  <button @click="change">changeName</button>
+</template>
+<script>
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    // 定义响应式属性（定义ref对象）
+    const name = ref('张三');
+
+    const person = ref({ age: 18 });
+
+    const change = () => {
+      console.log(name, person);
+
+      // 修改 引用实现 的值
+      name.value += 'x';
+
+      person.value.age += 1;
+    };
+
+    return {
+      name,
+      person,
+      change,
+    };
+  },
+};
+</script>
+```
+
 ### 4.3. reactive 函数
 
 ### 4.4. vue3 中响应式的原理
