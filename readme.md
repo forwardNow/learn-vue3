@@ -99,6 +99,80 @@ npm run dev
 * vite 确实比 webpack 快
 * 但没有大规模应用，还有许多坑要踩。（也就是说 现阶段还是用 webpack）
 
+#### 2.1.3. 使用 webpack5 创建
+
+>>最小配置
+
+相关依赖：
+
+```shell
+npm i -D webpack webpack-cli webpack-dev-server html-webpack-plugin
+
+# 注意 vue3 和 loader 都要加 @next
+npm i -D vue-loader@next
+npm i vue@next
+```
+
+package.json：
+
+```json
+{
+  "scripts": {
+    "dev": "webpack serve"
+  },
+  "dependencies": {
+    "vue": "^3.2.23"
+  },
+  "devDependencies": {
+    "html-webpack-plugin": "^5.5.0",
+    "vue-loader": "^16.8.3",
+    "webpack": "^5.64.4",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.6.0"
+  }
+}
+```
+
+webpack.config.js:
+
+```javascript
+const path = require('path');
+const { VueLoaderPlugin } = require('vue-loader')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+  mode: 'development',
+  devtool: "source-map",
+  entry: './src/main.js',
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: '[name].js'
+  },
+  devServer: {
+    port: 8080,
+    open: true,
+    hot: true,
+  },
+  module: {
+    rules: [
+      {
+        test: /\.vue$/,
+        use: [
+          'vue-loader'
+        ]
+      }
+    ]
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      filename: 'index.html',
+      template: path.resolve(__dirname, "index.html"),
+    }),
+    new VueLoaderPlugin()
+  ],
+};
+```
+
 ### 2.2. vue3 工程结构分析
 
 分析入口文件：
