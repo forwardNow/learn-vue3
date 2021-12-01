@@ -365,6 +365,58 @@ export default {
 
 ### 4.3. reactive 函数
 
+作用：
+
+* 定义一个对象类型的响应式数据（基本类型的数据建议用 `ref` 函数）
+
+语法：
+
+* `const 代理对象 = reactive(源对象)`
+* 接收一个对象（或数组），返回一个代理对象（`Proxy` 对象）
+* 不用像 `ref` 一样使用 `xxx.value`
+
+说明：
+
+* `reactive` 定义的响应式数据是 “深层次的”
+* 基于 ES6 的 `Proxy` 实现，通过 代理对象 操作 源对象
+
+示例：
+
+```html
+<template>
+  <div>姓名： {{ person.name }}</div>
+  <div>父母： {{ person.parents }}</div>
+  <button @click="change">changeName</button>
+</template>
+<script>
+import { reactive } from 'vue';
+
+export default {
+  setup() {
+    const person = reactive({
+      name: '张三',
+      parents: [
+        { name: '张爸爸' },
+        { name: '李妈妈' }
+      ]
+    });
+
+    const change = () => {
+      console.log(name);
+
+      // 不需要使用 $set
+      person.parents[0].name += 'x';
+    };
+
+    return {
+      person,
+      change,
+    };
+  },
+};
+</script>
+```
+
 ### 4.4. vue3 中响应式的原理
 
 ### 4.5. setup 注意点
