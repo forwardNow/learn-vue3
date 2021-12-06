@@ -419,6 +419,30 @@ export default {
 
 ### 4.4. vue3 中响应式的原理
 
+#### 4.4.1. vue2 的响应式
+
+实现原理：
+
+* 对象类型： 通过 `Object.defineProperty()` 对属性的读取、修改进行拦截（数据劫持）。
+* 数组类型： 通过重写**更新数组**的一系列方法来实现拦截。（封装 变更数组的方法）
+* 
+  ```javascript
+  Object.defineProperty(data, 'count', {
+    get() {},
+    set() {}
+  })
+  ```
+
+存在的问题：
+
+* 直接新增属性、删除属性，界面不会更新
+* 直接通过 下标 修改数组，界面不会自动更新
+
+解决方案：
+
+* `vm.$set()` 添加属性
+* `vm.$delete()` 删除属性
+
 ### 4.5. setup 注意点
 
 ### 4.6. reactive VS ref
