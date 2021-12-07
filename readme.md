@@ -186,7 +186,7 @@ vue2 的写法：
 
 ```javascript
 const vm = new Vue({
-  render: h ==> h(App)
+  render: h => h(App)
 });
 
 vm.$mount('#app');
@@ -427,21 +427,55 @@ export default {
 * 数组类型： 通过重写**更新数组**的一系列方法来实现拦截。（封装 变更数组的方法）
 * 
   ```javascript
-  Object.defineProperty(data, 'count', {
-    get() {},
-    set() {}
+  // 此 API 只能监听到“读、改”对象的属性， “删、增”对象的属性 无能为力
+  Object.defineProperty(person, 'name', {
+    get() {
+      return person.name;
+    },
+    set(value) {
+      // 修改了属性，更新界面
+      person.name = value;
+    }
   })
   ```
 
 存在的问题：
 
-* 直接新增属性、删除属性，界面不会更新
+* 直接新增属性、删除属性，界面不会自动更新
 * 直接通过 下标 修改数组，界面不会自动更新
 
 解决方案：
 
 * `vm.$set()` 添加属性
 * `vm.$delete()` 删除属性
+
+#### 4.4.2. vue3 的响应式
+
+示例：
+
+```javascript
+const person = {
+  name: '张三'
+};
+
+const proxy = new Proxy(person, {
+  // 读
+  get(target, propName) {
+    console.log(`读 person 的 ${propName}`);
+    return target[propName];
+  },
+  // 改 和 增
+  set(target, propName, value) {
+    console.log(`改/增 person 的 ${propName}`);
+    return target[propName] = value;
+  },
+  // 删
+  deleteProperty(target, propName) {
+    console.log(`删 person 的 ${propName}`);
+    return delete target[propName];
+  }
+});
+```
 
 ### 4.5. setup 注意点
 

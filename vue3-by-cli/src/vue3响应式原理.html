@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<script>
+  const person = {
+    name: '张三'
+  };
+
+  const proxy = new Proxy(person, {
+    // 读
+    get(target, propName) {
+      console.log(`读 person 的 ${propName}`);
+      return target[propName];
+    },
+    // 改 和 增
+    set(target, propName, value) {
+      console.log(`改/增 person 的 ${propName}`);
+      return target[propName] = value;
+    },
+    // 删
+    deleteProperty(target, propName) {
+      console.log(`删 person 的 ${propName}`);
+      return delete target[propName];
+    }
+  });
+</script>
+</body>
+</html>
