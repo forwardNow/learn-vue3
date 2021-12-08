@@ -451,6 +451,13 @@ export default {
 
 #### 4.4.2. vue3 的响应式
 
+> Proxy + Reflect
+
+说明：
+
+* Proxy ： 拦截对象中属性的变化
+* Reflect ： 对源对象的属性进行操作
+
 示例：
 
 ```javascript
@@ -462,17 +469,20 @@ const proxy = new Proxy(person, {
   // 读
   get(target, propName) {
     console.log(`读 person 的 ${propName}`);
-    return target[propName];
+    // return target[propName];
+    return Reflect.get(target. propName);
   },
   // 改 和 增
   set(target, propName, value) {
     console.log(`改/增 person 的 ${propName}`);
-    return target[propName] = value;
+    // return target[propName] = value;
+    return Reflect.set(target, propName, value);
   },
   // 删
   deleteProperty(target, propName) {
     console.log(`删 person 的 ${propName}`);
-    return delete target[propName];
+    // return delete target[propName];
+    return Reflect.deleteProperty(target, propName);
   }
 });
 ```
