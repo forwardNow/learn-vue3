@@ -491,6 +491,12 @@ const proxy = new Proxy(person, {
 
 ### 4.6. reactive VS ref
 
+|   | `reactive`  | `ref` | 备注 |
+| - | - | - | - |
+| 定义数据 | 对象/数组类型数据  | 基本类型数据 | `ref` 也可以定义对象类型，但内部会使用 `reactive` |
+| 原理 | 通过 `Proxy` 进行数据劫持， `Reflect` 操作源对象  | 通过 `Object.defineProperty` 的 get/set 进行数据劫持 |  |
+| 使用 | 不需要 `.value`  | 需要 `.value` |  |
+
 ### 4.7. 计算属性 和 watch
 
 ### 4.8. 生命周期
