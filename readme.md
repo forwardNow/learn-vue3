@@ -489,6 +489,75 @@ const proxy = new Proxy(person, {
 
 ### 4.5. setup 注意点
 
+setup 执行时机：
+
+* 在 `beforeCreate` 之前执行一次， `this` 是 `undefined`
+
+setup 的参数：
+
+* props: 对象类型，包含 父组件传的 且在子组件声明了的 属性 
+* context: 上下文对象
+  * attrs: 对象类型，包含 父组件传的 且未在子组件声明的 属性，相当于 v2 中的 `this.$attrs`
+  * slots: 插槽内容，相当于 `this.$slots`
+  * emit: 分发自定义事件的函数，相当于 `this.$emit`
+
+示例：
+
+```html
+// Child.vue
+<template>
+  <div>姓名： {{ name }}</div>
+  <slot name="msg"></slot>
+  <button @click="handleClick">click me</button>
+</template>
+<script>
+export default {
+  props: [ 'name' ],
+  slots: ['msg'],
+  emits: ['sayHello'],
+  setup(props, context) {
+    console.log('props', props); // Proxy {name: 'zhangsan'}
+    console.log('context.attrs', context.attrs); // Proxy {age: '18', __vInternal: 1}
+    console.log('context.slots', context.slots);
+
+    return {
+      handleClick() {
+        context.emit('sayHello', 'hhhh');
+      }
+    }
+  },
+};
+</script>
+```
+
+```html
+// App.vue
+<template>
+  <Child name="zhangsan" age="18" @sayHello="handleSayHello">
+    <template v-slot:msg>
+      <div>哈哈哈</div>
+    </template>
+  </Child>
+</template>
+<script>
+import Child from './Child.vue';
+
+export default {
+  components: {
+    Child
+  },
+
+  setup() {
+    return {
+      handleSayHello(value) {
+        console.log('value', value);
+      }
+    }
+  }
+};
+</script>
+```
+
 ### 4.6. reactive VS ref
 
 |   | `reactive`  | `ref` |

@@ -1,36 +1,24 @@
 <template>
-  <div>姓名： {{ person.name }}</div>
-  <div>性别： {{ person.sex }}</div>
-  <div>父母： {{ person.parents }}</div>
-  <button @click="change">changeName</button>
+  <Child name="zhangsan" age="18" @sayHello="handleSayHello">
+    <template v-slot:msg>
+      <div>哈哈哈</div>
+    </template>
+  </Child>
 </template>
 <script>
-import { reactive } from 'vue';
+import Child from './Child.vue';
 
 export default {
-  setup() {
-    const person = reactive({
-      name: '张三',
-      parents: [
-        { name: '张爸爸' },
-        { name: '李妈妈' }
-      ]
-    });
-
-    const change = () => {
-      person.parents[0].name += 'x';
-
-      // 删除元素
-      delete person.name;
-
-      // 添加元素
-      person.sex = '男';
-    };
-
-    return {
-      person,
-      change,
-    };
+  components: {
+    Child
   },
+
+  setup() {
+    return {
+      handleSayHello(value) {
+        console.log('value', value);
+      }
+    }
+  }
 };
 </script>
